@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tin Học Tổ 1 Lớp 12B1</title> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap">
+  <style>
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+      body {
+        background: linear-gradient(to right, rgb(255,255,255), rgb(254,215,173));
+      }
+      nav {
+        width: 100%;
+        /* Use min-height so that on mobile the nav can expand if needed */
+        min-height: 10vh;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+      }
+      .nav-container {
+        width: 90%;
+        margin: auto;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+      }
+      .logo {
+        color: black;
+        font-size: 2rem;
+        font-weight: bolder;
+      }
+      .logo span {
+        color: rgb(109,67, 0);
+        text-shadow: 0 0 10px rgb(109,67, 0);
+      }
+      .hamburg, .cancel {
+        cursor: pointer;
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        color: black;
+        font-size: 2rem;
+        display: none;
+      }
+      .nav-container .links {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+      .nav-container .links a {
+        font-size: 1.2rem;
+        color: black;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s linear;
+        position: relative;
+      }
+      .nav-container .links a::before {
+        position: absolute;
+        content: "";
+        bottom: -3px;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background-color: rgb(109,67, 0);
+        transition: 0.2s linear;
+      }
+      .nav-container .links a:hover::before {
+        width: 100%;
+      }
+      .nav-container .contact-btn, .nav-container .member-btn {
+        background-color: transparent;
+        padding: 5px 20px;
+        border-radius: 20px;
+        border: 2px solid rgb(109,67, 0);
+        transition: 0.2s linear;
+      }
+      .nav-container .contact-btn a, 
+      .nav-container .member-btn a {
+        color: black;
+        text-decoration: none;
+        transition: 0.3s linear;
+      }
+      .nav-container .contact-btn:hover,
+      .nav-container .member-btn:hover {
+        background-color: rgb(109,67, 0);
+      }
+      .nav-container .contact-btn:hover a,
+      .nav-container .member-btn:hover a {
+        color: white;
+      }
+      .dropdown {
+        z-index: 100;
+        position: absolute;
+        top: 0;
+        transform: translateY(-500px);
+        width: 100%;
+        backdrop-filter: brightness(40%) blur(3px);
+        box-shadow: 0 0 20px black;
+        transition: 0.2s linear;
+      }
+      .dropdown .links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .dropdown .links a {
+        color: white;
+        text-decoration: none;
+        padding: 15px 0;
+        width: 100%;
+        text-align: center;
+        transition: 0.2s linear;
+      }
+      .dropdown .links a:hover {
+        background-color: rgb(109,67, 0);
+      }
+
+      section {
+        width: 100%;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        padding: 2rem 0;
+      }
+      .main-container {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .main-container .image {
+        flex: 1 1 40%;
+        /* Remove negative z-index to avoid stacking issues */
+        margin: 1rem;
+      }
+      .main-container .image img {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .main-container .content {
+        flex: 1 1 40%;
+        color: black;
+        margin: 1rem;
+      }
+      .content h1 {
+        font-size: clamp(1rem, 2rem + 5vw, 3rem);
+      }
+      .content h1 span {
+        color: rgb(109,67, 0);
+        text-shadow: 0 0 10px rgb(109,67, 0);
+      }
+      .content .typewriter {
+        font-weight: 600;
+        font-size: clamp(1rem, 1rem + 5vw, 2rem);
+        margin: 1rem 0;
+        position: relative;
+      }
+      .content .typewriter span {
+        color: rgb(109,67, 0);
+        font-size: 2.5rem;
+        text-shadow: 0 0 5px rgb(109,67, 0);
+      }
+      .content p {
+        font-size: clamp(0.8rem, 0.8rem + 2vw, 1rem);
+        margin: 10px 0;
+      }
+      .social-links i {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 3rem;
+        height: 3rem;
+        background-color: transparent;
+        border: 0.2rem solid rgb(109,67, 0);
+        border-radius: 50%;
+        color: rgb(109,67, 0);
+        margin: 5px 10px;
+        font-size: 1.5rem;
+        transition: 0.2s linear;
+      }
+      .social-links i:hover {
+        transform: scale(1.1);
+        color: white;
+        background-color: rgb(109,67, 0);
+        filter: drop-shadow(0 0 10px rgb(109,67, 0));
+      }
+      .content button {
+        width: 40%;
+        height: 6vh;
+        margin: 30px 0;
+        background-color: rgb(109,67, 0);
+        color: white;
+        border: none;
+        font-size: 1rem;
+        font-weight: 700;
+        border-radius: 5px;
+        transition: 0.2s linear;
+        cursor: pointer;
+      }
+      .content button:hover {
+        transform: scale(1.05);
+        color: rgb(109,67, 0);
+        border: 2px solid rgb(109,67, 0);
+        background-color: transparent;
+        box-shadow: 0 0 15px rgb(109,67, 0);
+      }
+
+      #members {
+        padding: 4rem 0;
+        background-color: #f8f8f8;
+      }
+      #members h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        color: rgb(109,67, 0);
+      }
+      .member-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        width: 90%;
+        margin: auto;
+      }
+      .member-card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+      }
+      .member-card:hover {
+        transform: translateY(-5px);
+      }
+      .member-card i {
+        font-size: 2.5rem;
+        color: rgb(109,67,0);
+        margin-bottom: 1rem;
+      }
+      .member-card h3 {
+        color: rgb(109,67,0);
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+      .member-card p {
+        font-size: 0.9rem;
+        color: #666;
+      }
+      
+      @media (max-width: 884px) {
+        .nav-container .links { 
+          display: none; 
+        }
+        .hamburg, .cancel { 
+          display: block; 
+        }
+        .main-container { 
+          flex-direction: column; 
+        }
+        .main-container .content, .main-container .image { 
+          width: 90%; 
+          margin: 1rem 0;
+        }
+      }
+      @media (max-width: 768px) {
+        .member-grid { 
+          grid-template-columns: repeat(2, 1fr); 
+        }
+      }
+      @media (max-width: 480px) {
+        .member-grid { 
+          grid-template-columns: 1fr; 
+        }
+        /* Adjust font sizes and margins for very small devices */
+        .content h1 {
+          font-size: 1.5rem;
+        }
+        .content p {
+          font-size: 0.9rem;
+        }
+        .social-links i {
+          width: 2.5rem;
+          height: 2.5rem;
+          font-size: 1.2rem;
+        }
+      }
+      .content .typewriter{
+        font-weight: 600;
+        font-size: clamp(1rem, 1rem + 5vw, 2rem);
+      }
+      .content .typewriter span{
+        color: rgb(109,67, 0);
+        font-size: 2.5rem;
+        text-shadow: 0 0 5px rgb(109,67, 0);
+        position: relative;
+        transition: 0.3s linear;
+      }
+      .typewriter span::before{
+        content: "TDuy";
+        animation: words 15s infinite;
+      }
+      .typewriter span::after{
+        content: "";
+        position: absolute;
+        width: calc(100% + 8px);
+        height: 100%;
+        border-left: 3px solid black;
+        animation:  cursor 0.6s linear infinite;
+      }
+      @keyframes cursor {
+        to{
+          border-left: 3px solid #b74b4b;
+        }
+      }
+      @keyframes words {
+        0%, 33%{
+          content: "Bài 19";
+        }
+        34%, 66%{
+          content: "Bài 20";
+        }
+        67%, 100%{
+          content:"Bài 21" ;
+        }
+      }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <div class="logo" data-aos="zoom-in" data-aos-duration="1000">
+        <span>TIN TỔ 1</span>
+      </div>
+      <div class="links">
+        <a href="https://thanhduy1307d.github.io/bai19/bai19.html">Bài 19</a>
+        <a href=" https://thanhduy1307d.github.io/bai20/bai20.html">Bài 20</a>
+        <a href="https://thanhduy1307d.github.io/bai21/bai21.html">Bài 21</a>
+        <a href="">THPT SÔNG RAY</a>
+      </div>
+    </div>
+  </nav>
+
+  <section>
+    <div class="main-container">
+      <div class="image" data-aos="zoom-in-right" data-aos-duration="2500">
+        <img src="https://i.imgur.com/umKqYFd.jpeg" alt="Tin Học">
+      </div>
+      <div class="content">
+        <h1 data-aos="fade-left" data-aos-duration="1000" data-aos-delay="800">
+          <span>Hướng Nghiệp Với Tin Học</span>
+        </h1>
+        <div class="typewriter" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="900">
+          Nội Dung <span></span>
+        </div>
+        <p data-aos="flip-up" data-aos-duration="1000" data-aos-delay="1000">© Tổ 1 Lớp 12B1</p>
+        <div class="social-links" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="1200">
+          <a href="https://www.facebook.com/to.van.721286"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://www.tiktok.com/@tinydalw?_t=ZS-8uO9fb6kCNs&_r=1"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+        <div class="btn" data-aos="zoom-out-left" data-aos-duration="1000" data-aos-delay="1300">
+          <button onclick="location.href='#members'">THÀNH VIÊN</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="members">
+    <h1 data-aos="fade-up" data-aos-duration="1000">Danh Sách <span>Thành Viên</span></h1>
+    <div class="member-grid" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Vũ Thành Hoan</h3>
+        <p>Tổ Trưởng</p>
+      </div>
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Vi Thị Vân</h3>
+        <p>Tổ Phó</p>
+      </div>
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Trương Ngọc Bích</h3>
+        <p>Tổ Viên</p>
+      </div>
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Dường Bảo Nghi</h3>
+        <p>Tổ Viên</p>
+      </div>
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Nguyễn Châu Tường Vi</h3>
+        <p>Tổ Viên</p>
+      </div>
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Hoàng Thị Thanh Thủy</h3>
+        <p>Tổ Viên</p>
+      </div>
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Phan Hà My</h3>
+        <p>Tổ Viên</p>
+      </div>
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Nguyễn Thành Duy</h3>
+        <p>Tổ Viên</p>
+      </div>
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Vi Thị Hồng Dung</h3>
+        <p>Tổ Viên</p>
+      </div>
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Phòng Hồng Trang</h3>
+        <p>Tổ Viên</p>
+      </div>
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Lê Nhật Ánh Dương</h3>
+        <p>Tổ Viên</p>
+      </div>
+      <div class="member-card">
+        <i class="fas fa-user"></i>
+        <h3>Trần Thị Ngọc Ngân</h3>
+        <p>Tổ Viên</p>
+      </div>
+    </div>
+  </section>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({offset:0});
+
+    function hamburg(){
+      const navbar = document.querySelector(".dropdown")
+      navbar.style.transform = "translateY(0px)"
+    }
+    function cancel(){
+      const navbar = document.querySelector(".dropdown")
+      navbar.style.transform = "translateY(-500px)"
+    }
+  </script>
+</body>
+</html>
